@@ -1,0 +1,17 @@
+
+body{
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    text-align: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e3edf7;
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+}
+
+canvas{
+    position: absolute;
+}
