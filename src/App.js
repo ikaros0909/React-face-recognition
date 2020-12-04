@@ -24,9 +24,14 @@ function App() {
       document.body.append(canvas)
       const displaySize = { width: video.width, height: video.height }
       faceapi.matchDimensions(canvas, displaySize)
+      console.log(faceapi.nets)
       setInterval(async () => {
         const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions()
         const resizedDetections = faceapi.resizeResults(detections, displaySize)
+        if(resizedDetections.length > 0){
+          console.log("resizedDetections:",resizedDetections[0].expressions);
+        }
+
         canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
         faceapi.draw.drawDetections(canvas, resizedDetections)
         faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
@@ -46,8 +51,7 @@ function App() {
   }, []);
 
   return (
-    <video id="video" width="1000" height="800" autoplay="true" ></video>
-      
+    <video id="video" width="1000" height="800" autoplay="true"></video>
   )
 }
 
