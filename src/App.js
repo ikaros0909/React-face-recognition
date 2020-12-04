@@ -24,12 +24,30 @@ function App() {
       document.body.append(canvas)
       const displaySize = { width: video.width, height: video.height }
       faceapi.matchDimensions(canvas, displaySize)
-      console.log(faceapi.nets)
+      // console.log(faceapi.nets)
       setInterval(async () => {
         const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions()
         const resizedDetections = faceapi.resizeResults(detections, displaySize)
         if(resizedDetections.length > 0){
-          console.log("resizedDetections:",resizedDetections[0].expressions);
+          // ["neutral", "happy", "sad", "angry", "fearful", "disgusted", "surprised"]
+          if(resizedDetections[0].expressions.happy > 0.5){
+            console.log("행복해^^:",resizedDetections[0].expressions.happy);
+          }
+          if(resizedDetections[0].expressions.sad > 0.5){
+            console.log("슬퍼ㅠ.ㅠ:",resizedDetections[0].expressions.sad);
+          }
+          if(resizedDetections[0].expressions.angry > 0.5){
+            console.log("화나!:",resizedDetections[0].expressions.angry);
+          }
+          if(resizedDetections[0].expressions.fearful > 0.5){
+            console.log("무서워ㅠ.ㅠ:",resizedDetections[0].expressions.fearful);
+          }
+          if(resizedDetections[0].expressions.disgusted > 0.5){
+            console.log("역겨워!!:",resizedDetections[0].expressions.disgusted);
+          }
+          if(resizedDetections[0].expressions.surprised > 0.5){
+            console.log("놀라워@.@:",resizedDetections[0].expressions.surprised);
+          }
         }
 
         canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
